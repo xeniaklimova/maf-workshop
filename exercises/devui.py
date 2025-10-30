@@ -12,6 +12,7 @@ from agent_framework import (
     ChatResponse,
     FunctionInvocationContext,
     Role,
+    WorkflowBuilder,
     chat_middleware,
     function_middleware,
 )
@@ -99,7 +100,12 @@ def get_forecast(
 
     return f"Weather forecast for {location}:\n" + "\n".join(forecast)
 
-
+client = AzureOpenAIChatClient(
+        endpoint=endpoint,
+        api_key=api_key,
+        api_version=api_version,
+        deployment_name=deployment,
+    )
 # Agent instance following Agent Framework conventions
 agent = ChatAgent(
     name="AzureWeatherAgent",
@@ -109,14 +115,40 @@ agent = ChatAgent(
     and forecasts for any location. Always be helpful and provide detailed
     weather information when asked.
     """,
-    chat_client=AzureOpenAIChatClient(
-        endpoint=endpoint,
-        api_key=api_key,
-        api_version=api_version,
-        deployment_name=deployment,
-    ),
+    chat_client=client,
     tools=[get_weather, get_forecast],
     middleware=[security_filter_middleware, atlantis_location_filter_middleware],
+)
+
+analyst_agent = client.create_agent(
+    instructions=(
+        "You are a business analyst. Draft a short business case based on the provided idea. "
+    ),
+    name="analyst",
+)
+
+finance_agent = client.create_agent(
+    instructions=(
+        "You are a finance expert. Review the business case and highlight any financial risks or constraints."
+    ),
+    name="finance",
+)
+
+approval_agent = client.create_agent(
+    instructions=(
+        "You are a senior manager. Decide whether to approve the business case based on strategic alignment. "
+        "Respond with 'Approved' or 'Needs Revision' and provide reasoning."
+    ),
+    name="approval",
+)
+
+
+workflow = (
+    WorkflowBuilder()
+    .set_start_executor(analyst_agent)
+    .add_edge(analyst_agent, finance_agent)
+    .add_edge(finance_agent, approval_agent)
+    .build()
 )
 
 
@@ -135,7 +167,7 @@ def main():
     logger.info("Entity ID: agent_AzureWeatherAgent")
 
     # Launch server with the agent
-    serve(entities=[agent], port=8090, auto_open=True)
+    serve(entities=[workflow], port=8090, auto_open=True)
 
 
 if __name__ == "__main__":
