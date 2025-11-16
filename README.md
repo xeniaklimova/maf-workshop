@@ -70,17 +70,17 @@ This adds your virtual environment as a selectable kernel in Jupyter.
 
 - Navigate to `models + endpoints`
 
-<img src="assets/image.png" alt="Model deployments" style= "margin:20px auto">
+<img src="assets/image.png" alt="Model deployments" style= "width:70%, height:auto; margin:20px auto">
 
 - Deploy a new model (gpt-4o for this workshop)
 
 
-<img src="assets/image-1.png" alt="Model deployments" style="width:30%; height:30%; margin:20px auto">
+<img src="assets/image-1.png" alt="Model deployments" style="width:50%; height:40%; margin:20px auto">
 
 6. Get the API endpoint and key from:
 
 
-<img src="assets/image-2.png" alt="API key" style="width:50%; height:auto; margin:20px auto">
+<img src="assets/image-2.png" alt="API key" style="width:70%; height:auto; margin:20px auto">
 
 
 7. Copy and paste the deployment name, endpoint and API key into a `.env` file. You can find an example in `.env.example`.
