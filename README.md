@@ -1,4 +1,4 @@
-# Agent Framework Hackathon Guide
+# Agent Framework Workshop Guide
 
 ## Introduction
 
@@ -12,53 +12,53 @@ Welcome to the Agent Framework workshop! This project is designed to help you le
 - (or run locally with [Python](https://www.python.org/) 3.9+ installed, see instructions below if needed)
 - An Azure OpenAI API key or OpenAI API key (For production ready deployments, you should refrain from using keys, and switch to [managed identities](https://learn.microsoft.com/entra/identity/managed-identities-azure-resources/overview))
 - [Visual Studio Code](https://code.visualstudio.com/)
+- [UV package manager](https://docs.astral.sh/uv/getting-started/installation/)
 
 
 When not using Codespaces, follow below instructions:
 
 ### Installation
 
-1. Open Visual Studio Code (Link in your desktop)
-2. Open a Powershell terminal using the upper menu `Terminal -> New Terminal` or by pressing CTRL+SHIFT+` (backtick). Make sure to select the Powershell terminal in the dropdown menu on the top right of the terminal window.
-3. Clone the repository:
+1. Launch VS Code
+```cmd
+git clone <repo-url>
+cd agent-framework-workshop
+```
 
-   ```Powershell
-   git clone https://github.com/xeniaklimova/agent-framework-workshop
-   cd agent-framework-workshop
+2. Clone the repository
+
+3. Local Dependencies Setup
+
+The project is managed by pyproject.toml and [uv package manager](https://docs.astral.sh/uv/getting-started/installation/).
+
+For local execution init the .venv environment using [uv package manager](https://docs.astral.sh/uv/getting-started/installation/):
+
+    ```cmd
+    # Use cmd
+    uv sync --prerelease=allow
+    ```
+This creates a .venv folder in your project directory, installs all dependencies defined in pyproject.toml into that environment and ensures pre-release versions are allowed.
+
+3. Activate the virtual environment:
+
+    **Windows:**
+   ```cmd
+   .venv\Scripts\activate
    ```
+*Note*: After this step all project-related commands should run inside the created virtual environment
 
-4. Select open folder in your VS Code and open the `agent-framework-workshop` folder to see the code in your VS Code.
-5. Install depedencies (might take a few minutes):
+4. Copy the environment variables template:
 
-    [uv](https://github.com/astral-sh/uv) is a fast Python package installer and runner. If you haven't installed it yet:
-
-    ```Powershell
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-    $env:Path += ";C:\Users\Admin\.local\bin"
-    uv sync
+    ```cmd
+    copy .env.example .env
     ```
 
-    **OR (without using uv)**
+5. (Optional) Register Jupyter kernel:
 
-    ```bash
-        python -m venv .venv
+    ```cmd
+    python -m ipykernel install --user --name=agent-framework-workshop
     ```
-
-    ```powershell
-        # On Windows
-        .venv\Scripts\activate
-    ```
-
-    ```bash
-        # On macOS/Linux
-        source venv/bin/activate
-    ```
-
-    ```powershell
-      curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-      python get-pip.py
-      pip --version
-    ```
+This adds your virtual environment as a selectable kernel in Jupyter.
 
 ### AI Endpoints Setup
 
@@ -70,15 +70,15 @@ When not using Codespaces, follow below instructions:
 
 - Navigate to `models + endpoints`
 
-![alt text](image.png)
+![alt text](assets/image.png)
 
 - Deploy a new model (gpt-4o for this workshop)
 
-![alt text](image-1.png)
+![alt text](assets/image-1.png)
 
 6. Get the API endpoint and key from: 
 
-![alt text](image-2.png)
+![alt text](assets/image-2.png)
 
 7. Copy and paste the deployment name, endpoint and API key into a `.env` file. You can find an example in `.env.example`.
 
@@ -95,11 +95,34 @@ AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
 
 ---
 
-# Getting Started
+## Getting Started
 Start with the first exercise and progress through them sequentially.
 
 Use documentation on https://learn.microsoft.com/en-us/agent-framework/
 to help you with getting up to speed and figuring out what steps to take to complete the exercises.
+
+## Project Structure 
+
+```
+agent-framework-workshop/
+├── 01-single-agents/    
+│   ├── 01.1-single-agents.ipynb      # Agent fundamentals
+│   ├── 01.2-sigle-agent-mcp.ipynb    # MAF + MCP example
+├── 02-workflows/                     # Agent creation and orchestration
+│   ├── 02.1-intro-workflows.ipynb    # Intro to core concepts
+│   ├── 02.2-orchestrations.ipynb     # Multi-agent communication
+├── mcp/
+│   ├── contoso.db   
+│   ├── mcp_server.py 
+├── exercises/                       
+│   └── 03-human-in-the-loop.ipynb    # [TODO] Need to add prereqs - workflow states, request/response patterns
+├── devui_samples/               # [IN PROGRESS] Complete runnable scripts with DevUI added
+│   ├── 1-chatbot.py             # Simple chatbot workflow (from SK 4.1)
+│   ├── 2-content.py             # Content creation workflow (from SK 4.1) 
+└── .env.example                 # Environment variables template
+```
+
+
 
 ---
 
