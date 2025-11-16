@@ -19,27 +19,27 @@ When not using Codespaces, follow below instructions:
 
 ### Installation
 
-1. Launch VS Code
+1. **Launch VS Code**
     ```cmd
     git clone <repo-url>
     cd agent-framework-workshop
     ```
 
-2. Clone the repository
+2. **Clone the repository**
 
-3. Local Dependencies Setup
+3. **Local Dependencies Setup**
 
 The project is managed by pyproject.toml and [uv package manager](https://docs.astral.sh/uv/getting-started/installation/).
 
-For local execution init the .venv environment using [uv package manager](https://docs.astral.sh/uv/getting-started/installation/):
+For local execution init the .venv environment with uv:
 
-    ```python
-    # Use command prompt
-    uv sync --prerelease=allow
-    ```
+```python
+# Use command prompt
+uv sync --prerelease=allow
+```
 This creates a .venv folder in your project directory, installs all dependencies defined in pyproject.toml into that environment and ensures pre-release versions are allowed.
 
-3. Activate the virtual environment:
+3. **Activate the virtual environment:**
 
     **Windows:**
    ```cmd
@@ -47,13 +47,13 @@ This creates a .venv folder in your project directory, installs all dependencies
    ```
 *Note*: After this step all project-related commands should run inside the created virtual environment
 
-4. Copy the environment variables template:
+4. **Copy the environment variables template:**
 
     ```cmd
     copy .env.example .env
     ```
 
-5. (Optional) Register Jupyter kernel:
+5. **(Optional) Register Jupyter kernel:**
 
     ```cmd
     python -m ipykernel install --user --name=agent-framework-workshop
@@ -70,15 +70,18 @@ This adds your virtual environment as a selectable kernel in Jupyter.
 
 - Navigate to `models + endpoints`
 
-![alt text](assets/image.png)
+<img src="assets/image.png" alt="Model deployments" style= "margin:20px auto">
 
 - Deploy a new model (gpt-4o for this workshop)
 
-![alt text](assets/image-1.png)
 
-6. Get the API endpoint and key from: 
+<img src="assets/image-1.png" alt="Model deployments" style="width:30%; height:30%; margin:20px auto">
 
-![alt text](assets/image-2.png)
+6. Get the API endpoint and key from:
+
+
+<img src="assets/image-2.png" alt="API key" style="width:50%; height:auto; margin:20px auto">
+
 
 7. Copy and paste the deployment name, endpoint and API key into a `.env` file. You can find an example in `.env.example`.
 
@@ -86,14 +89,13 @@ This adds your virtual environment as a selectable kernel in Jupyter.
 ```python
 # Azure OpenAI configuration
 AZURE_OPENAI_ENDPOINT=https://<resource>.openai.azure.com/
-# note that cognitiveservices endpoints also work: https://<resource>.cognitiveservices.azure.com/
+# Note that cognitiveservices endpoints also work: https://<resource>.cognitiveservices.azure.com/
 AZURE_OPENAI_API_KEY=<your-api-key>
 AZURE_OPENAI_API_VERSION=2025-03-01-preview
 AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=gpt-4o-2024-11-20
 AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME=text-embedding-ada-002
 ``` 
 
----
 
 ## Getting Started
 Start with the first exercise and progress through them sequentially.
