@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Welcome to the Agent Framework workshop! This project is designed to help you learn and practice implementing multi-agent systems using Agent Framework. The repository contains a series of progressive exercises that will guide you through building increasingly complex agent systems, from simple single-agent interactions to sophisticated multi-agent collaborative scenarios and MCP servers.
+Welcome to the Microsoft Agent Framework workshop! This project is designed to help you learn and practice implementing multi-agent systems using Agent Framework. The repository contains a series of progressive exercises that will guide you through building increasingly complex agent systems, from simple single-agent interactions to sophisticated multi-agent collaborative scenarios and MCP servers.
 
 ## Setup
 
@@ -20,10 +20,10 @@ When not using Codespaces, follow below instructions:
 ### Installation
 
 1. Launch VS Code
-```cmd
-git clone <repo-url>
-cd agent-framework-workshop
-```
+    ```cmd
+    git clone <repo-url>
+    cd agent-framework-workshop
+    ```
 
 2. Clone the repository
 
@@ -33,8 +33,8 @@ The project is managed by pyproject.toml and [uv package manager](https://docs.a
 
 For local execution init the .venv environment using [uv package manager](https://docs.astral.sh/uv/getting-started/installation/):
 
-    ```cmd
-    # Use cmd
+    ```python
+    # Use command prompt
     uv sync --prerelease=allow
     ```
 This creates a .venv folder in your project directory, installs all dependencies defined in pyproject.toml into that environment and ensures pre-release versions are allowed.
